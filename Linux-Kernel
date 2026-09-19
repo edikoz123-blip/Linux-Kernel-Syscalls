@@ -1,0 +1,44 @@
+; --- PROCESS SCHEDULING ---
+%define CPU_TIME_ALLOCATION       0x0       ; Default scheduling priority (Nice 0)
+%define PREEMPTIVE_MULTITASKING   0x1       ; Preemptive multitasking mode flag
+%define FAIR_RESOURCE_DISTRIBUTION 0x0      ; Completely Fair Scheduler (SCHED_OTHER)
+
+; --- PROCESS LIFECYCLE ---
+%define sys_fork                  0x39      ; Creation: Duplicate process (System Call 57)
+%define sys_execve                0x3b      ; Execution: Execute binary program (System Call 59)
+%define sys_exit                  0x3c      ; Termination: End process and clear registers (System Call 60)
+%define sys_wait4                 0x3d      ; Resource cleanup: Clean up child process resources (System Call 61)
+
+; --- MEMORY MANAGEMENT ---
+%define sys_mmap                  0x9       ; sys_mmap: Allocate virtual memory pages (System Call 9)
+%define sys_swapon                0xa7      ; sys_swapon: Enable and manage swap memory (System Call 167)
+%define MAP_PRIVATE               0x22      ; MAP_PRIVATE | MAP_ANONYMOUS (Memory space isolation)
+%define sys_munmap                0xB       ; sys_munmap realse the memory page
+%define sys_mprotect              0xA       ; sys_mprotect: letting you change the page protector 
+
+; --- NETWORKING & SOCKET API ---
+%define sys_socket                0x29      ; Socket API: Create communication endpoint (System Call 41)
+%define sys_connect               0x2a      ; TCP/IP Stack: Connect directly to a target (System Call 42)
+%define sys_sendto                0x2c      ; Packet routing: Route network packets out (System Call 44)
+
+; --- DEVICE ACCESS ---
+%define HARDWARE_ABSTRACTION      0x0       ; Hardware Abstraction Layer in machine code
+%define ACCESS_ARBITRATION        0x1       ; Privilege arbitration (Ring 0 vs Ring 3)
+%define sys_ioctl                 0x10      ; sys_ioctl: Unified interface for device control (System Call 16)
+
+; --- FILE SYSTEM & CREATE/READ/UPDATE/DELETE ---
+%define sys_mount                 0xa5      ; sys_mount: Support for multiple filesystem types (System Call 165)
+%define sys_openat                0x203     ; sys_openat: Unified file open interface (System Call 515)
+%define sys_read                  0x0       ; Read file or flag data into register (System Call 0)
+%define sys_write                 0x1       ; Write or inject data to an open channel (System Call 1)
+%define sys_unlink                0x57      ; Delete files for evidence destruction (System Call 87)
+
+; --- SYSTEM CALLS & SECURITY VALIDATION ---
+%define sys_getuid                0x66      ; sys_getuid: Validate user privileges (System Call 96)
+%define sys_prctl                 0x9d      ; sys_prctl: Advanced process control and anti-reverse defenses (System Call 157)
+
+; --- FILELESS RUNTIME CONTROLS ---
+%define sys_memfd_create          0x13f     ; Create an anonymous in-memory file descriptor (Syscall 319)
+%define sys_execveat              0x142     ; Execute a program directly from a file descriptor (Syscall 322)
+%define MFD_CLOEXEC               0x0001    ; Close the file descriptor automatically on successful execution
+%define AT_EMPTY_PATH             0x1000    ; Force execveat to operate directly on the file descriptor
